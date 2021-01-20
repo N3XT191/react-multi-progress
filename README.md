@@ -49,16 +49,16 @@ import MultiProgress, { IMultiProgressProps } from 'react-multi-progress'
 import MultiProgress from "react-multi-progress";
 
 function Progress() {
-	return (
-		<MultiProgress
-			elements={[
-				{
-					value: 35,
-					color: "blue",
-				},
-			]}
-		/>
-	);
+  return (
+    <MultiProgress
+      elements={[
+        {
+          value: 35,
+          color: "blue",
+        },
+      ]}
+    />
+  );
 }
 ```
 
@@ -68,27 +68,27 @@ function Progress() {
 import MultiProgress from "react-multi-progress";
 
 function Progress() {
-	return (
-		<MultiProgress
-			transitionTime={1.2}
-			elements={[
-				{
-					value: 15,
-					color: "blue",
-				},
-				{
-					value: 35,
-					color: "rgb(100,0,0)",
-				},
-				{
-					value: 25,
-					color: "#acf",
-				},
-			]}
-			height={25}
-			backgroundColor="gray"
-			border={"1px solid red"}
-		/>
-	);
+  return (
+    <MultiProgress
+      transitionTime={1.2}
+      elements={[
+        {
+          value: 15,
+          color: "blue",
+        },
+        {
+          value: 35,
+          color: "rgb(100,0,0)",
+        },
+        {
+          value: 25,
+          color: "#acf",
+        },
+      ]}
+      height={25}
+      backgroundColor="gray"
+      border={"1px solid red"}
+    />
+  );
 }
 ```
