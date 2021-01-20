@@ -1,6 +1,6 @@
 # react-multi-progress
 
-![alt text](docs/progress.png)
+![alt text](docs/progressbar.png)
 
 A simple, typed react progress bar that allowes multiple layers in different colors. [Demo](http://progress.bitter.li)
 
