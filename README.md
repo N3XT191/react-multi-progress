@@ -24,12 +24,71 @@ import MultiProgress, { IMultiProgressProps } from 'react-multi-progress'
 
 ## Available props
 
-| Attribute        |        Type         |  Default  | Description                                                                                              |
-| :--------------- | :-----------------: | :-------: | :------------------------------------------------------------------------------------------------------- |
-| backgroundColor  |      `string`       | `#ffffff` | Render a specific button type, styled by the .scss type list                                             |
-| border           |      `string`       |    ``     | Render a specific button size, styled by the .scss size list                                             |
-| elements         | `ProgressElement[]` |  `none`   | Overwrites the default container element renderer, useful for using it with react-router Link component. |
-| height           |      `number`       |   `10`    | Should render a disabled button                                                                          |
-| round            |       `bool`        |  `true`   | Should the button be visible                                                                             |
-| roundLastElement |       `bool`        |  `true`   | Should render the animated ripple effect                                                                 |
-| transitionTime   |      `number`       |   `0.6`   | Default click/press function                                                                             |
+| Attribute        |        Type         | Optional |  Default  | Description                                                                                |
+| :--------------- | :-----------------: | :------: | :-------: | ------------------------------------------------------------------------------------------ |
+| backgroundColor  |      `string`       |   yes    | `#ffffff` | Background color of the progress bar                                                       |
+| border           |      `string`       |   yes    |  `none`   | set a border around the progress bar, e.g. `1px solid red`                                 |
+| elements         | `ProgressElement[]` |    no    |  `none`   | Set the color and size of each element, see "ProgressElement" below.                       |
+| height           |      `number`       |   yes    |   `10`    | Height of the progress bar in `px`                                                         |
+| round            |       `bool`        |   yes    |  `true`   | Wheter the ends of the progress bar container should be rounded                            |
+| roundLastElement |       `bool`        |   yes    |  `true`   | Wheter the last progress element should be rounded on the right end                        |
+| transitionTime   |      `number`       |   yes    |   `0.6`   | Transition time in seconds to animate when the value changes. Set to `0` for no animation. |
+
+### ProgressElement
+
+| Attribute |   Type   | Optional | Description                                      |
+| :-------- | :------: | :------: | :----------------------------------------------- |
+| value     | `number` |    no    | Length of the element (0-100)                    |
+| color     | `string` |    no    | Color of the element (any css compatible format) |
+
+## Example
+
+### Basic
+
+```jsx
+import MultiProgress from "react-multi-progress";
+
+function Progress() {
+	return (
+		<MultiProgress
+			elements={[
+				{
+					value: 35,
+					color: "blue",
+				},
+			]}
+		/>
+	);
+}
+```
+
+### Advanced
+
+```jsx
+import MultiProgress from "react-multi-progress";
+
+function Progress() {
+	return (
+		<MultiProgress
+			transitionTime={1.2}
+			elements={[
+				{
+					value: 15,
+					color: "blue",
+				},
+				{
+                    value: 35,		
+       				color: "rgb(100,0,0)",
+				},
+				{
+					value: 25,
+					color: "#acf",
+				},
+			]}
+			height={25}
+			backgroundColor="gray"
+			border={"1px solid red"}
+		/>
+	);
+}
+```
