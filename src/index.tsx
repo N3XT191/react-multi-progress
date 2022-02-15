@@ -70,7 +70,7 @@ const styles = {
 			borderRadius: "0 " + roundRightString + " 0",
 			color: textColor,
 			textAlign: "center",
-			fontSize,
+			fontSize: fontSize ? fontSize : 8,
 		});
 	},
 };

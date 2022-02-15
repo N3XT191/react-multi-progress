@@ -38,10 +38,13 @@ import MultiProgress, { IMultiProgressProps } from 'react-multi-progress'
 
 ### ProgressElement
 
-| Attribute |   Type   | Optional | Description                                      |
-| :-------- | :------: | :------: | :----------------------------------------------- |
-| value     | `number` |    no    | Length of the element in % (0-100)               |
-| color     | `string` |    no    | Color of the element (any css compatible format) |
+| Attribute      |   Type   | Optional | Description                                              |
+| :------------- | :------: | :------: | :------------------------------------------------------- |
+| value          | `number` |    no    | Length of the element in % (0-100)                       |
+| color          | `string` |    no    | Color of the element (any css compatible format)         |
+| showPercentage |  `bool`  |   yes    | Show the percentage as text in the ProgressElement       |
+| textColor      | `string` |   yes    | Color of the percentage text (any css compatible format) |
+| fontSize       | `number` |   yes    | font size of the percentage text (in px)                 |
 
 ## Example
 
@@ -85,9 +88,12 @@ function Progress() {
 				{
 					value: 25,
 					color: "#acf",
+					showPercentage: true,
+					textColor: "black",
+					fontSize: 12,
 				},
 			]}
-			height={25}
+			height={15}
 			backgroundColor="gray"
 			border={"1px solid red"}
 		/>
