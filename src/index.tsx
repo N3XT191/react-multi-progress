@@ -44,7 +44,7 @@ const styles = {
 		value: number,
 		transitionTime: number,
 		roundRight: boolean,
-		foreColor: string,
+		foreColor: string | undefined,
 	) => {
 		const roundRightString = roundRight ? "40px 40px" : "0 0";
 		return css({
