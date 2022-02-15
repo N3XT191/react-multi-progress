@@ -5,7 +5,8 @@ interface ProgressElement {
 	value: number;
 	color: string;
 	showPercentage?: boolean;
-	foreColor?: string;
+	textColor?: string;
+	fontSize?: number;
 }
 
 export type IMultiProgressProps = {
@@ -18,7 +19,11 @@ export type IMultiProgressProps = {
 	transitionTime?: number;
 };
 const styles = {
-	progressContainer: (round: boolean, height: string | number, border: string) => {
+	progressContainer: (
+		round: boolean,
+		height: string | number,
+		border: string
+	) => {
 		const convertedHeight = typeof height === "string" ? height : height + "px";
 		return css({
 			width: "100%",
@@ -44,7 +49,8 @@ const styles = {
 		value: number,
 		transitionTime: number,
 		roundRight: boolean,
-		foreColor: string | undefined,
+		textColor: string | undefined,
+		fontSize: number | undefined
 	) => {
 		const roundRightString = roundRight ? "40px 40px" : "0 0";
 		return css({
@@ -56,10 +62,15 @@ const styles = {
 			left: offset + "%",
 			position: "absolute",
 			transition:
-				"width " + transitionTime + "s ease-in-out, left " + transitionTime + "s ease-in-out",
+				"width " +
+				transitionTime +
+				"s ease-in-out, left " +
+				transitionTime +
+				"s ease-in-out",
 			borderRadius: "0 " + roundRightString + " 0",
-			color: foreColor,
-			textAlign: "center"
+			color: textColor,
+			textAlign: "center",
+			fontSize,
 		});
 	},
 };
@@ -81,7 +92,8 @@ const createElementArray = (
 					element.value,
 					transitionTime,
 					i === elements.length - 1 && roundLastElement,
-					element.foreColor
+					element.textColor,
+					element.fontSize
 				)}
 				key={i}
 			>
@@ -105,9 +117,11 @@ const MultiProgress: React.FC<IMultiProgressProps> = ({
 	return (
 		<div {...styles.progressContainer(round, height, border)}>
 			<div {...styles.progressBackground(backgroundColor)} />
-			{createElementArray(elements, transitionTime, roundLastElement).map((element, i) => (
-				<div key={i}>{element}</div>
-			))}
+			{createElementArray(elements, transitionTime, roundLastElement).map(
+				(element, i) => (
+					<div key={i}>{element}</div>
+				)
+			)}
 		</div>
 	);
 };
