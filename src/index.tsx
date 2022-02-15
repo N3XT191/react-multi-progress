@@ -4,6 +4,8 @@ import { css } from "glamor";
 interface ProgressElement {
 	value: number;
 	color: string;
+	showPercentage?: boolean;
+	foreColor?: string;
 }
 
 export type IMultiProgressProps = {
@@ -41,7 +43,8 @@ const styles = {
 		offset: number,
 		value: number,
 		transitionTime: number,
-		roundRight: boolean
+		roundRight: boolean,
+		foreColor: string,
 	) => {
 		const roundRightString = roundRight ? "40px 40px" : "0 0";
 		return css({
@@ -55,6 +58,8 @@ const styles = {
 			transition:
 				"width " + transitionTime + "s ease-in-out, left " + transitionTime + "s ease-in-out",
 			borderRadius: "0 " + roundRightString + " 0",
+			color: foreColor,
+			textAlign: "center"
 		});
 	},
 };
@@ -75,10 +80,13 @@ const createElementArray = (
 					currentOffset,
 					element.value,
 					transitionTime,
-					i === elements.length - 1 && roundLastElement
+					i === elements.length - 1 && roundLastElement,
+					element.foreColor
 				)}
 				key={i}
-			/>
+			>
+				{element.showPercentage && `${element.value}%`}
+			</div>
 		);
 		currentOffset += element.value;
 	});
