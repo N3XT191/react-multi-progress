@@ -35,6 +35,7 @@ import MultiProgress, { IMultiProgressProps } from 'react-multi-progress'
 | round            |       `bool`        |   yes    |  `true`   | Wheter the ends of the progress bar container should be rounded                            |
 | roundLastElement |       `bool`        |   yes    |  `true`   | Wheter the last progress element should be rounded on the right end                        |
 | transitionTime   |      `number`       |   yes    |   `0.6`   | Transition time in seconds to animate when the value changes. Set to `0` for no animation. |
+| className        |      `string`       |   yes    |           | CSS className passed onto the ProgressBar Container                                        |
 
 ### ProgressElement
 
@@ -45,6 +46,7 @@ import MultiProgress, { IMultiProgressProps } from 'react-multi-progress'
 | showPercentage |  `bool`  |   yes    | Show the percentage as text in the ProgressElement       |
 | textColor      | `string` |   yes    | Color of the percentage text (any css compatible format) |
 | fontSize       | `number` |   yes    | font size of the percentage text (in px)                 |
+| className      | `string` |   yes    | CSS className passed onto the ProgressElement            |
 
 ## Example
 
@@ -91,11 +93,13 @@ function Progress() {
 					showPercentage: true,
 					textColor: "black",
 					fontSize: 12,
+					className: "my-custom-css-class",
 				},
 			]}
 			height={15}
 			backgroundColor="gray"
 			border={"1px solid red"}
+			className="my-custom-css-class"
 		/>
 	);
 }
