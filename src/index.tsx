@@ -7,6 +7,7 @@ interface ProgressElement {
 	showPercentage?: boolean;
 	textColor?: string;
 	fontSize?: number;
+	className?: string;
 }
 
 export type IMultiProgressProps = {
@@ -17,6 +18,7 @@ export type IMultiProgressProps = {
 	round?: boolean;
 	roundLastElement?: boolean;
 	transitionTime?: number;
+	className?: string;
 };
 const styles = {
 	progressContainer: (
@@ -96,6 +98,7 @@ const createElementArray = (
 					element.fontSize
 				)}
 				key={i}
+				className={element.className}
 			>
 				{element.showPercentage && `${element.value}%`}
 			</div>
@@ -113,9 +116,13 @@ const MultiProgress: React.FC<IMultiProgressProps> = ({
 	round = true,
 	roundLastElement = true,
 	transitionTime = 0.6,
+	className,
 }) => {
 	return (
-		<div {...styles.progressContainer(round, height, border)}>
+		<div
+			{...styles.progressContainer(round, height, border)}
+			className={className}
+		>
 			<div {...styles.progressBackground(backgroundColor)} />
 			{createElementArray(elements, transitionTime, roundLastElement).map(
 				(element, i) => (
