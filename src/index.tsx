@@ -1,7 +1,7 @@
 import * as React from "react";
 import { css } from "glamor";
 
-interface ProgressElement {
+export interface ProgressElement {
 	value: number;
 	color: string;
 	showPercentage?: boolean;
@@ -10,20 +10,23 @@ interface ProgressElement {
 	className?: string;
 }
 
-export type IMultiProgressProps = {
+export type ProgressComponentProps<T> = {
+	style?: React.CSSProperties,
+	children?: React.ReactNode,
+	className?: string,
+	element: (ProgressElement & T)
+};
+
+export type IMultiProgressProps<T> = {
 	backgroundColor?: string;
 	border?: string;
-	elements: ProgressElement[];
+	elements: (ProgressElement & T)[];
 	height?: number | string;
 	round?: boolean;
 	roundLastElement?: boolean;
 	transitionTime?: number;
 	className?: string;
-	Component?: React.ElementType<{
-		style?: React.CSSProperties,
-		children?: React.ReactNode,
-		className?: string
-	}>
+	component?: React.ElementType<ProgressComponentProps<T>>
 };
 const styles = {
 	progressContainer: (
@@ -82,16 +85,16 @@ const styles = {
 	},
 };
 
-const createElementArray = (
-	elements: ProgressElement[],
+function createElementArray<T>(
+	elements: (T & ProgressElement)[],
 	transitionTime: number,
 	roundLastElement: boolean,
-	Component: IMultiProgressProps["Component"]
-) => {
+	component: IMultiProgressProps<T>["component"]
+) {
 	let currentOffset = 0;
 	let newElements = [] as any[];
 
-	const Element = Component ?? "div";
+	const Element = component ?? "div";
 
 	elements.forEach((element, i) => {
 		newElements.push(
@@ -107,6 +110,7 @@ const createElementArray = (
 				)}
 				key={i}
 				className={element.className}
+				element={element}
 			>
 				{element.showPercentage && `${element.value}%`}
 			</Element>
@@ -114,9 +118,9 @@ const createElementArray = (
 		currentOffset += element.value;
 	});
 	return newElements;
-};
+}
 
-const MultiProgress: React.FC<IMultiProgressProps> = ({
+export default function MultiProgress<T = Record<string, never>>({
 	backgroundColor = "#ffffff",
 	border = "",
 	elements,
@@ -125,21 +129,19 @@ const MultiProgress: React.FC<IMultiProgressProps> = ({
 	roundLastElement = true,
 	transitionTime = 0.6,
 	className,
-	Component
-}) => {
+	component
+}: IMultiProgressProps<T>) {
 	return (
 		<div
 			{...styles.progressContainer(round, height, border)}
 			className={className}
 		>
 			<div {...styles.progressBackground(backgroundColor)} />
-			{createElementArray(elements, transitionTime, roundLastElement, Component).map(
+			{createElementArray(elements, transitionTime, roundLastElement, component).map(
 				(element, i) => (
 					<div key={i}>{element}</div>
 				)
 			)}
 		</div>
 	);
-};
-
-export default MultiProgress;
+}
