@@ -19,6 +19,11 @@ export type IMultiProgressProps = {
 	roundLastElement?: boolean;
 	transitionTime?: number;
 	className?: string;
+	Component?: React.ElementType<{
+		style?: React.CSSProperties,
+		children?: React.ReactNode,
+		className?: string
+	}>
 };
 const styles = {
 	progressContainer: (
@@ -80,14 +85,17 @@ const styles = {
 const createElementArray = (
 	elements: ProgressElement[],
 	transitionTime: number,
-	roundLastElement: boolean
+	roundLastElement: boolean,
+	Component: IMultiProgressProps["Component"]
 ) => {
 	let currentOffset = 0;
 	let newElements = [] as any[];
 
+	const Element = Component ?? "div";
+
 	elements.forEach((element, i) => {
 		newElements.push(
-			<div
+			<Element
 				{...styles.progressElement(
 					element.color,
 					currentOffset,
@@ -101,7 +109,7 @@ const createElementArray = (
 				className={element.className}
 			>
 				{element.showPercentage && `${element.value}%`}
-			</div>
+			</Element>
 		);
 		currentOffset += element.value;
 	});
@@ -117,6 +125,7 @@ const MultiProgress: React.FC<IMultiProgressProps> = ({
 	roundLastElement = true,
 	transitionTime = 0.6,
 	className,
+	Component
 }) => {
 	return (
 		<div
@@ -124,7 +133,7 @@ const MultiProgress: React.FC<IMultiProgressProps> = ({
 			className={className}
 		>
 			<div {...styles.progressBackground(backgroundColor)} />
-			{createElementArray(elements, transitionTime, roundLastElement).map(
+			{createElementArray(elements, transitionTime, roundLastElement, Component).map(
 				(element, i) => (
 					<div key={i}>{element}</div>
 				)
