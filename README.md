@@ -76,10 +76,10 @@ function Progress() {
 ### Advanced
 
 ```tsx
-import MultiProgress from "react-multi-progress";
+import MultiProgress, { ProgressComponentProps } from "react-multi-progress";
 
 // for non-TS projects, remove this and other types
-type ExtraData = {isBold: boolean};
+type ExtraData = { isBold: boolean };
 
 function CustomComponent(props: ProgressComponentProps<ExtraData>) {
 	return (
