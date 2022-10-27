@@ -11,11 +11,10 @@ export interface ProgressElement {
 }
 
 export type ProgressComponentProps<T> = {
-	style?: React.CSSProperties,
 	children?: React.ReactNode,
 	className?: string,
 	element: (ProgressElement & T)
-};
+} & Record<string, unknown>;
 
 export type IMultiProgressProps<T> = {
 	backgroundColor?: string;
