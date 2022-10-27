@@ -91,7 +91,7 @@ function createElementArray<T>(
 	component: IMultiProgressProps<T>["component"]
 ) {
 	let currentOffset = 0;
-	let newElements = [] as any[];
+	let newElements: React.ReactNode[] = [];
 
 	const Element = component ?? "div";
 
